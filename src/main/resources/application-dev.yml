@@ -11,6 +11,13 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
+    properties.hibernate.show_sql: true
+    properties.hibernate.format.sql: true
   sql:
     init:
       platform: h2
+  flyway:
+    url: jdbc:h2:mem:devdb;DB_CLOSE_DELAY=-1
+    user: lennon
+    password: abc123
+    locations: db/migration
