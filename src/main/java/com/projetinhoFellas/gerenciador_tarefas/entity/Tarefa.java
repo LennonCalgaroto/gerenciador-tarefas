@@ -2,10 +2,7 @@ package com.projetinhoFellas.gerenciador_tarefas.entity;
 
 import com.projetinhoFellas.gerenciador_tarefas.enumTarefa.enumTarefaPrioridade;
 import com.projetinhoFellas.gerenciador_tarefas.enumTarefa.enumTarefaStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,23 +19,31 @@ import java.time.LocalDateTime;
 public class Tarefa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column
     private String titulo;
 
+    @Column
     private String descricao;
 
+    @Column
     private LocalDateTime dataCriacao;
 
+    @Column
     private LocalDateTime dataAlteracao;
 
+    @Column
     private LocalDateTime dataConclusao;
 
+    @Column
     private enumTarefaStatus status;
 
+    @Column
     private enumTarefaPrioridade prioridade;
 
+    @Column
     private String responsavel;
 
 }
