@@ -15,10 +15,11 @@ public class TarefaService {
     @Autowired
     private TarefaRepository tarefaRepository;
 
-    public void criarTarefa(TarefaDTO tarefaDTO) {
+    public Tarefa criarTarefa(TarefaDTO tarefaDTO) {
         Tarefa tarefa = converterDTOParaEntidade(tarefaDTO);
         tarefa = tarefaRepository.save(tarefa);
         TarefaDTO.of(tarefa);
+        return tarefa;
     }
 
     public void atualizarTarefa(Long id, TarefaDTO tarefaDTO) {

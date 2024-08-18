@@ -21,6 +21,7 @@ public class TarefaDTO {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAlteracao;
     private LocalDateTime dataConclusao;
+    private String responsavel;
 
     public static TarefaDTO of(Tarefa tarefa) {
         return TarefaDTO.builder()
@@ -32,6 +33,7 @@ public class TarefaDTO {
                 .dataCriacao(tarefa.getDataCriacao())
                 .dataAlteracao(tarefa.getDataAlteracao())
                 .dataConclusao(tarefa.getDataConclusao())
+                .responsavel(tarefa.getResponsavel())
                 .build();
     }
 }
