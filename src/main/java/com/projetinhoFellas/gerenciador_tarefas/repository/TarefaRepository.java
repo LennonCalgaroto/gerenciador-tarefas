@@ -17,7 +17,7 @@ public class TarefaRepository {
         return IrepositoryTarefa.save(tarefa);
     }
 
-    public Optional<Tarefa> findbyId(Long id) {
+    public Optional<Tarefa> findById(Long id) {
         return IrepositoryTarefa.findById(id);
     }
 

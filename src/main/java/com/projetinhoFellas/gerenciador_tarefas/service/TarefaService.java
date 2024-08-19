@@ -15,14 +15,15 @@ public class TarefaService {
     @Autowired
     private TarefaRepository tarefaRepository;
 
-    public void criarTarefa(TarefaDTO tarefaDTO) {
+    public Tarefa criarTarefa(TarefaDTO tarefaDTO) {
         Tarefa tarefa = converterDTOParaEntidade(tarefaDTO);
         tarefa = tarefaRepository.save(tarefa);
         TarefaDTO.of(tarefa);
+        return tarefa;
     }
 
-    public void atualizarTarefa(Long id, TarefaDTO tarefaDTO) {
-        Tarefa tarefaExistente = tarefaRepository.findbyId(id)
+    public Tarefa atualizarTarefa(Long id, TarefaDTO tarefaDTO) {
+        Tarefa tarefaExistente = tarefaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Tarefa não encontrada"));
 
         tarefaExistente.setTitulo(tarefaDTO.getTitulo());
@@ -33,10 +34,11 @@ public class TarefaService {
 
         Tarefa tarefaAtualizada = tarefaRepository.save(tarefaExistente);
         TarefaDTO.of(tarefaAtualizada);
+        return tarefaExistente;
     }
 
     public TarefaDTO buscarTarefasPorId(Long id) {
-        Tarefa tarefa = tarefaRepository.findbyId(id)
+        Tarefa tarefa = tarefaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Tarefa não encontrada"));
         TarefaDTO.of(tarefa);
         return converterEntidadeParaDTO(tarefa);
