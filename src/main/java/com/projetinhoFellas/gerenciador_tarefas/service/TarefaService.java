@@ -2,28 +2,28 @@ package com.projetinhoFellas.gerenciador_tarefas.service;
 
 import com.projetinhoFellas.gerenciador_tarefas.dto.TarefaDTO;
 import com.projetinhoFellas.gerenciador_tarefas.entity.Tarefa;
-import com.projetinhoFellas.gerenciador_tarefas.repository.TarefaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.projetinhoFellas.gerenciador_tarefas.repository.ITarefaRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class TarefaService {
 
-    @Autowired
-    private TarefaRepository tarefaRepository;
+    private ITarefaRepository iTarefaRepository;
 
     public Tarefa criarTarefa(TarefaDTO tarefaDTO) {
         Tarefa tarefa = converterDTOParaEntidade(tarefaDTO);
-        tarefa = tarefaRepository.save(tarefa);
+        tarefa = iTarefaRepository.save(tarefa);
         TarefaDTO.of(tarefa);
         return tarefa;
     }
 
     public Tarefa atualizarTarefa(Long id, TarefaDTO tarefaDTO) {
-        Tarefa tarefaExistente = tarefaRepository.findById(id)
+        Tarefa tarefaExistente = iTarefaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Tarefa não encontrada"));
 
         tarefaExistente.setTitulo(tarefaDTO.getTitulo());
@@ -32,27 +32,27 @@ public class TarefaService {
         tarefaExistente.setPrioridade(tarefaDTO.getPrioridade());
         tarefaExistente.setDataAlteracao(tarefaDTO.getDataAlteracao());
 
-        Tarefa tarefaAtualizada = tarefaRepository.save(tarefaExistente);
+        Tarefa tarefaAtualizada = iTarefaRepository.save(tarefaExistente);
         TarefaDTO.of(tarefaAtualizada);
         return tarefaExistente;
     }
 
     public TarefaDTO buscarTarefasPorId(Long id) {
-        Tarefa tarefa = tarefaRepository.findById(id)
+        Tarefa tarefa = iTarefaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Tarefa não encontrada"));
         TarefaDTO.of(tarefa);
         return converterEntidadeParaDTO(tarefa);
     }
 
     public List<TarefaDTO> listarTodasTarefas() {
-        List<Tarefa> tarefas = tarefaRepository.findAll();
+        List<Tarefa> tarefas = iTarefaRepository.findAll();
         return tarefas.stream()
                 .map(this::converterEntidadeParaDTO)
                 .collect(Collectors.toList());
     }
 
     public void deleteById(Long id) {
-        tarefaRepository.deleteById(id);
+        iTarefaRepository.deleteById(id);
     }
 
     private TarefaDTO converterEntidadeParaDTO(Tarefa tarefa) {

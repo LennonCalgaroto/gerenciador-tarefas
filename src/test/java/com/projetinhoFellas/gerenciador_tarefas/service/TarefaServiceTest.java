@@ -4,7 +4,7 @@ import com.projetinhoFellas.gerenciador_tarefas.dto.TarefaDTO;
 import com.projetinhoFellas.gerenciador_tarefas.entity.Tarefa;
 import com.projetinhoFellas.gerenciador_tarefas.enumTarefa.enumTarefaPrioridade;
 import com.projetinhoFellas.gerenciador_tarefas.enumTarefa.enumTarefaStatus;
-import com.projetinhoFellas.gerenciador_tarefas.repository.TarefaRepository;
+import com.projetinhoFellas.gerenciador_tarefas.repository.ITarefaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 class TarefaServiceTest {
 
     @Mock
-    private TarefaRepository tarefaRepository;
+    private ITarefaRepository iTarefaRepository;
 
     @InjectMocks
     private TarefaService tarefaService;
@@ -46,13 +46,13 @@ class TarefaServiceTest {
         tarefa.setPrioridade(enumTarefaPrioridade.ALTA);
         tarefa.setResponsavel("Lennon Calgaroto");
 
-        when(tarefaRepository.save(any(Tarefa.class))).thenReturn(tarefa);
+        when(iTarefaRepository.save(any(Tarefa.class))).thenReturn(tarefa);
 
         Tarefa result = tarefaService.criarTarefa(TarefaDTO.of(tarefa));
 
         assertNotNull(result);
         assertEquals("Nova Tarefa", result.getTitulo());
-        verify(tarefaRepository, times(1)).save(any(Tarefa.class));
+        verify(iTarefaRepository, times(1)).save(any(Tarefa.class));
     }
 
     @Test
@@ -73,8 +73,8 @@ class TarefaServiceTest {
         tarefa.setPrioridade(tarefaDTO.getPrioridade());
         tarefa.setResponsavel(tarefaDTO.getResponsavel());
 
-        when(tarefaRepository.findById(tarefaId)).thenReturn(Optional.of(tarefa));
-        when(tarefaRepository.save(any(Tarefa.class))).thenReturn(tarefa);
+        when(iTarefaRepository.findById(tarefaId)).thenReturn(Optional.of(tarefa));
+        when(iTarefaRepository.save(any(Tarefa.class))).thenReturn(tarefa);
 
         Tarefa result = tarefaService.atualizarTarefa(tarefaId, tarefaDTO);
 
@@ -82,8 +82,8 @@ class TarefaServiceTest {
         assertEquals(tarefaId, result.getId());
         assertEquals("Tarefa Atualizada", result.getTitulo());
         assertEquals(enumTarefaStatus.CONCLUIDO, result.getStatus());
-        verify(tarefaRepository, times(1)).findById(tarefaId);
-        verify(tarefaRepository, times(1)).save(any(Tarefa.class));
+        verify(iTarefaRepository, times(1)).findById(tarefaId);
+        verify(iTarefaRepository, times(1)).save(any(Tarefa.class));
     }
 
     @Test
@@ -92,13 +92,13 @@ class TarefaServiceTest {
         tarefa.setId(1L);
         tarefa.setTitulo("Tarefa 1");
 
-        when(tarefaRepository.findById(1L)).thenReturn(Optional.of(tarefa));
+        when(iTarefaRepository.findById(1L)).thenReturn(Optional.of(tarefa));
 
         TarefaDTO result = tarefaService.buscarTarefasPorId(1L);
 
         assertNotNull(result);
         assertEquals("Tarefa 1", result.getTitulo());
-        verify(tarefaRepository, times(1)).findById(1L);
+        verify(iTarefaRepository, times(1)).findById(1L);
     }
 
     @Test
@@ -113,7 +113,7 @@ class TarefaServiceTest {
 
         List<Tarefa> tarefas = Arrays.asList(tarefa1, tarefa2);
 
-        when(tarefaRepository.findAll()).thenReturn(tarefas);
+        when(iTarefaRepository.findAll()).thenReturn(tarefas);
 
         List<TarefaDTO> result = tarefaService.listarTodasTarefas();
 
@@ -121,17 +121,17 @@ class TarefaServiceTest {
         assertEquals(2, result.size());
         assertEquals("Tarefa 1", result.get(0).getTitulo());
         assertEquals("Tarefa 2", result.get(1).getTitulo());
-        verify(tarefaRepository, times(1)).findAll();
+        verify(iTarefaRepository, times(1)).findAll();
     }
 
     @Test
     void deleteById() {
         Long tarefaId = 1L;
 
-        doNothing().when(tarefaRepository).deleteById(tarefaId);
+        doNothing().when(iTarefaRepository).deleteById(tarefaId);
 
         tarefaService.deleteById(tarefaId);
 
-        verify(tarefaRepository, times(1)).deleteById(tarefaId);
+        verify(iTarefaRepository, times(1)).deleteById(tarefaId);
     }
 }
