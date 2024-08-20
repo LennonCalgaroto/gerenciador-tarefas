@@ -13,7 +13,7 @@ ser estendidas no futuro.
 - **PostgreSQL** (para produção)
 - **Flyway** (para migrações de banco de dados)
 - **Lombok** (para simplificação do código)
-- **Docker Compose** (para orquestração de serviços, a ser adicionado posteriormente)
+- **Docker Compose** (para orquestração de serviços)
 - **JUnit & Mockito** (para testes unitários e de integração)
 
 ## Estrutura do Projeto
