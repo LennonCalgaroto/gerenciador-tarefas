@@ -5,7 +5,7 @@ CREATE TABLE tarefa
     descricao      VARCHAR(255),
     data_criacao   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_alteracao TIMESTAMP,
-    data_conclusao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(),
+    data_conclusao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status         VARCHAR(50) DEFAULT 'PENDENTE',
     prioridade     VARCHAR(50) DEFAULT 'MEDIA',
     responsavel    VARCHAR(255),
