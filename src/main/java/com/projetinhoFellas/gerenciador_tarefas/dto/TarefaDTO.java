@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 public class TarefaDTO {
     private long id;
+    private long codigo;
     private String titulo;
     private String descricao;
     private enumTarefaStatus status;
@@ -26,6 +27,7 @@ public class TarefaDTO {
     public static TarefaDTO of(Tarefa tarefa) {
         return TarefaDTO.builder()
                 .id(tarefa.getId())
+                .codigo((tarefa.getCodigo()))
                 .titulo(tarefa.getTitulo())
                 .descricao(tarefa.getDescricao())
                 .status(tarefa.getStatus())

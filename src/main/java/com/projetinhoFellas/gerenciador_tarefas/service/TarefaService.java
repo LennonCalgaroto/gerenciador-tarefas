@@ -26,11 +26,13 @@ public class TarefaService {
         Tarefa tarefaExistente = iTarefaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Tarefa não encontrada"));
 
+        tarefaExistente.setCodigo(tarefaDTO.getCodigo());
         tarefaExistente.setTitulo(tarefaDTO.getTitulo());
         tarefaExistente.setDescricao(tarefaDTO.getDescricao());
         tarefaExistente.setStatus(tarefaDTO.getStatus());
         tarefaExistente.setPrioridade(tarefaDTO.getPrioridade());
         tarefaExistente.setDataAlteracao(tarefaDTO.getDataAlteracao());
+        tarefaExistente.setResponsavel(tarefaDTO.getResponsavel());
 
         Tarefa tarefaAtualizada = iTarefaRepository.save(tarefaExistente);
         TarefaDTO.of(tarefaAtualizada);
@@ -57,6 +59,7 @@ public class TarefaService {
 
     private TarefaDTO converterEntidadeParaDTO(Tarefa tarefa) {
         TarefaDTO tarefaDTO = new TarefaDTO();
+        tarefaDTO.setCodigo(tarefa.getCodigo());
         tarefaDTO.setId(tarefa.getId());
         tarefaDTO.setTitulo(tarefa.getTitulo());
         tarefaDTO.setDescricao(tarefa.getDescricao());
@@ -65,11 +68,14 @@ public class TarefaService {
         tarefaDTO.setDataCriacao(tarefa.getDataCriacao());
         tarefaDTO.setDataAlteracao(tarefa.getDataAlteracao());
         tarefaDTO.setDataConclusao(tarefa.getDataConclusao());
+        tarefaDTO.setDataConclusao(tarefa.getDataConclusao());
+        tarefaDTO.setResponsavel(tarefa.getResponsavel());
         return tarefaDTO;
     }
 
     private Tarefa converterDTOParaEntidade(TarefaDTO tarefaDTO) {
         Tarefa tarefa = new Tarefa();
+        tarefa.setCodigo(tarefaDTO.getCodigo());
         tarefa.setId(tarefaDTO.getId());
         tarefa.setTitulo(tarefaDTO.getTitulo());
         tarefa.setDescricao(tarefaDTO.getDescricao());
@@ -78,6 +84,7 @@ public class TarefaService {
         tarefa.setDataCriacao(tarefaDTO.getDataCriacao());
         tarefa.setDataAlteracao(tarefaDTO.getDataAlteracao());
         tarefa.setDataConclusao(tarefaDTO.getDataConclusao());
+        tarefa.setResponsavel(tarefaDTO.getResponsavel());
         return tarefa;
     }
 

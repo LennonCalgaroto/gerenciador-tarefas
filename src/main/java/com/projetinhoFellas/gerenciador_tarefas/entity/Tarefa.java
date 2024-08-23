@@ -23,6 +23,9 @@ public class Tarefa {
     private Long id;
 
     @Column
+    private Long codigo;
+
+    @Column
     private String titulo;
 
     @Column
