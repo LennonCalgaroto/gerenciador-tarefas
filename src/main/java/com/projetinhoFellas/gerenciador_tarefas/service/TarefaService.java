@@ -33,6 +33,7 @@ public class TarefaService {
         tarefaExistente.setPrioridade(tarefaDTO.getPrioridade());
         tarefaExistente.setDataAlteracao(tarefaDTO.getDataAlteracao());
         tarefaExistente.setResponsavel(tarefaDTO.getResponsavel());
+        tarefaExistente.setDataConclusao(tarefaDTO.getDataConclusao());
 
         Tarefa tarefaAtualizada = iTarefaRepository.save(tarefaExistente);
         TarefaDTO.of(tarefaAtualizada);
